@@ -38,9 +38,9 @@ void main() {
     group('daysInMonth', () {
       void _assertDaysInMonth(
         DateTime date, {
-        DateTime first,
-        DateTime last,
-        int length,
+        required DateTime first,
+        required DateTime last,
+        required int length,
       }) {
         var days = DateUtils.daysInMonth(date);
         expect(days.first, first);
@@ -67,42 +67,23 @@ void main() {
     });
 
     test('isSameWeek', () {
-      expect(DateUtils.isSameWeek(DateTime(2017, 3, 4), DateTime(2017, 3, 5)),
-          false);
-      expect(DateUtils.isSameWeek(DateTime(2017, 3, 5), DateTime(2017, 3, 6)),
-          true);
-      expect(DateUtils.isSameWeek(DateTime(2017, 2, 26), DateTime(2017, 3, 4)),
-          true);
-      expect(DateUtils.isSameWeek(DateTime(2017, 3, 4), DateTime(2017, 3, 10)),
-          false);
-      expect(DateUtils.isSameWeek(DateTime(2017, 3, 3), DateTime(2017, 3, 10)),
-          false);
-      expect(DateUtils.isSameWeek(DateTime(2017, 3, 10), DateTime(2017, 3, 10)),
-          true);
-      expect(
-          DateUtils.isSameWeek(
-              DateTime(2018, 3, 29, 12), DateTime(2018, 3, 22, 12)),
-          false);
-      expect(
-          DateUtils.isSameWeek(
-              DateTime(2018, 3, 6, 12), DateTime(2018, 3, 13, 12)),
-          false);
+      expect(DateUtils.isSameWeek(DateTime(2017, 3, 4), DateTime(2017, 3, 5)), false);
+      expect(DateUtils.isSameWeek(DateTime(2017, 3, 5), DateTime(2017, 3, 6)), true);
+      expect(DateUtils.isSameWeek(DateTime(2017, 2, 26), DateTime(2017, 3, 4)), true);
+      expect(DateUtils.isSameWeek(DateTime(2017, 3, 4), DateTime(2017, 3, 10)), false);
+      expect(DateUtils.isSameWeek(DateTime(2017, 3, 3), DateTime(2017, 3, 10)), false);
+      expect(DateUtils.isSameWeek(DateTime(2017, 3, 10), DateTime(2017, 3, 10)), true);
+      expect(DateUtils.isSameWeek(DateTime(2018, 3, 29, 12), DateTime(2018, 3, 22, 12)), false);
+      expect(DateUtils.isSameWeek(DateTime(2018, 3, 6, 12), DateTime(2018, 3, 13, 12)), false);
     });
 
-    List<DateTime> testDates = [];
-    DateTime today;
+    var testDates = <DateTime>[];
+    late DateTime today;
 
     setUp(() {
       today = DateTime.now();
       // A full Calendar Week
-      testDates
-        ..add(DateTime(2018, 3, 4))
-        ..add(DateTime(2018, 3, 5))
-        ..add(DateTime(2018, 3, 6))
-        ..add(DateTime(2018, 3, 7))
-        ..add(DateTime(2018, 3, 8))
-        ..add(DateTime(2018, 3, 9))
-        ..add(DateTime(2018, 3, 10));
+      testDates..add(DateTime(2018, 3, 4))..add(DateTime(2018, 3, 5))..add(DateTime(2018, 3, 6))..add(DateTime(2018, 3, 7))..add(DateTime(2018, 3, 8))..add(DateTime(2018, 3, 9))..add(DateTime(2018, 3, 10));
     });
 
     for (var i = 0; i < 7; i++) {
@@ -113,8 +94,7 @@ void main() {
 
     for (var i = 0; i < 7; i++) {
       test('Utils.lastDayOfWeek', () {
-        expect(DateUtils.lastDayOfWeek(testDates[i]).day,
-            testDates[6].add(Duration(days: 1)).day);
+        expect(DateUtils.lastDayOfWeek(testDates[i]).day, testDates[6].add(Duration(days: 1)).day);
       });
     }
 
@@ -127,11 +107,7 @@ void main() {
         var firstDayOfCurrentWeek = DateUtils.firstDayOfWeek(today);
         var lastDayOfCurrentWeek = DateUtils.lastDayOfWeek(today);
 
-        expect(
-            DateUtils.daysInRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek)
-                .toList()
-                .length,
-            7);
+        expect(DateUtils.daysInRange(firstDayOfCurrentWeek, lastDayOfCurrentWeek).toList().length, 7);
       });
     }
   });
